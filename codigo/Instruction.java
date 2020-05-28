@@ -1,112 +1,158 @@
-import java.util.Stack;
+import java.util.*;
 
-public class Instruction {
-    public enum Inst_type {
-        ARITMETIC,
-        MANIPULATE_INT,
-        ACCESS_VARS,
-        ACCESS_ARGS,
-        FUNCT_CALL,
-        JUMP,
-        EXIT
-    }
-
-    Inst_type type;
-
-    public Instruction() {
-    }
+public interface Instruction {
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP);
+    public String toString();
 }
 
-class Aritmectic_inst extends Instruction {
-    public enum Kind {
-        ADD,
-        SUB,
-        MULT,
-        DIV,
-        MOD,
-        EXP
+class Add implements Instruction {
+    public Add() {
+        super();
     }
 
-    Kind kind;
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        if(eval_stack.size() < 2)
+            System.err.println("Not enough arguments to ADD\n");
 
-    public Aritmectic_inst(String kind) {
-        super();
-        this.type = Inst_type.ARITMETIC;
+        else{
+            Integer b = eval_stack.pop();
+            Integer a = eval_stack.pop();
 
-        switch(kind) {
-            case "ADD":
-                this.kind = Kind.ADD;
-                break;
-
-            case "SUB":
-                this.kind = Kind.SUB;
-                break;
-
-            case "MULT":
-                this.kind = Kind.MULT;
-                break;
-
-            case "DIV":
-                this.kind = Kind.DIV;
-                break;
-
-            case "MOD":
-                this.kind = Kind.MOD;
-                break;
-
-            case "EXP":
-                this.kind = Kind.EXP;
-                break;
-
-            default:
-                System.err.println("Error: wrong aritmectic kind");
-                System.exit(1);
-                break;
+            eval_stack.push(a + b);
         }
     }
 
     @Override
     public String toString() {
-        String ret;
-        switch(this.kind){
-            case ADD:
-                ret = "add";
-                break;
-
-            case SUB:
-                ret = "sub";
-                break;
-
-            case MULT:
-                ret = "mult";
-                break;
-
-            case DIV:
-                ret = "div";
-                break;
-
-            case MOD:
-                ret = "mod";
-                break;
-
-            case EXP:
-                ret = "exp";
-                break;
-                
-            default:
-                ret = "Something went wrong";
-        }
-        return ret;
+        return "add";
     }
 }
 
-class Manipulate_int_inst extends Instruction {
-    String integer;
-
-    public Manipulate_int_inst(String integer) {
+class Sub implements Instruction {
+    public Sub() {
         super();
-        this.type = Inst_type.MANIPULATE_INT;
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        if(eval_stack.size() < 2)
+            System.err.println("Not enough arguments to SUB\n");
+
+        else{
+            Integer b = eval_stack.pop();
+            Integer a = eval_stack.pop();
+
+            eval_stack.push(a - b);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "sub";
+    }
+}
+
+class Mult implements Instruction {
+    public Mult() {
+        super();
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        if(eval_stack.size() < 2)
+            System.err.println("Not enough arguments to MULT\n");
+
+        else{
+            Integer b = eval_stack.pop();
+            Integer a = eval_stack.pop();
+
+            eval_stack.push(a * b);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "mult";
+    }
+}
+
+class Div implements Instruction {
+    public Div() {
+        super();
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        if(eval_stack.size() < 2)
+            System.err.println("Not enough arguments to DIV\n");
+
+        else{
+            Integer b = eval_stack.pop();
+            Integer a = eval_stack.pop();
+
+            eval_stack.push(a / b);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "div";
+    }
+}
+
+class Mod implements Instruction {
+    public Mod() {
+        super();
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        if(eval_stack.size() < 2)
+            System.err.println("Not enough arguments to MOD\n");
+
+        else{
+            Integer b = eval_stack.pop();
+            Integer a = eval_stack.pop();
+
+            eval_stack.push(a % b);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "mod";
+    }
+}
+
+class Exp implements Instruction {
+    public Exp() {
+        super();
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        if(eval_stack.size() < 2)
+            System.err.println("Not enough arguments to EXP\n");
+
+        else{
+            Integer b = eval_stack.pop();
+            Integer a = eval_stack.pop();
+
+            eval_stack.push(a ^ b);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "exp";
+    }
+}
+
+class Push_int implements Instruction {
+    int integer;
+
+    public Push_int(int integer) {
+        super();
         this.integer = integer;
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        eval_stack.push(integer);
     }
 
     @Override
@@ -115,284 +161,282 @@ class Manipulate_int_inst extends Instruction {
     }
 }
 
-class Access_vars_inst extends Instruction {
-    public enum Kind {
-        PUSH,
-        STORE
-    }
+class Push_var implements Instruction {
+    int integer1, integer2;
 
-    Kind kind;
-    String integer1, integer2;
-
-    public Access_vars_inst(String kind, String integer1, String integer2) {
+    public Push_var(int integer1, int integer2) {
         super();
-        this.type = Inst_type.ACCESS_VARS;
-        switch(kind) {
-            case "PUSH":
-                this.kind = Kind.PUSH;
-                break;
-
-            case "STORE":
-                this.kind = Kind.STORE;
-                break;
-
-            default:
-                System.err.println("Error: wrong access vars kind");
-                System.exit(1);
-                break;
-        }
         this.integer1 = integer1;
         this.integer2 = integer2;
     }
 
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        int temp = EP;
+
+        for(int i = 0; i < integer1; i++) {
+            temp = exe_memo.get(temp);
+        }
+        
+        int value = exe_memo.get(temp + 2 + integer2);
+
+        eval_stack.push(value);
+    }
+
     @Override
     public String toString() {
-        String ret;
-        switch(this.kind){
-            case PUSH:
-                ret = "push_arg";
-                break;
-
-            case STORE:
-                ret = "store_arg";
-                break;
-
-            default:
-                ret = "Something went wrong";
-        }
-        return ret + " " + this.integer1 + " " + this.integer2;
+        return "push_var";
     }
 }
 
-class Access_args_inst extends Instruction {
-    public enum Kind {
-        PUSH,
-        STORE
-    }
-    Kind kind;
-    String integer1, integer2;
+class Store_var implements Instruction {
+    int integer1, integer2;
 
-    public Access_args_inst(String kind, String integer1, String integer2) {
+    public Store_var(int integer1, int integer2) {
         super();
-        this.type = Inst_type.ACCESS_ARGS;
-        switch(kind) {
-            case "PUSH":
-                this.kind = Kind.PUSH;
-                break;
-
-            case "STORE":
-                this.kind = Kind.STORE;
-                break;
-
-            default:
-                System.err.println("Error: wrong access args kind");
-                System.exit(1);
-                break;
-        }
         this.integer1 = integer1;
         this.integer2 = integer2;
     }
 
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        int temp = EP;
+        int value = eval_stack.pop();
+
+        for(int i = 0; i < integer1; i++) {
+            temp = exe_memo.get(temp);
+        }
+
+        exe_memo.set(temp + 2 + integer2, value);
+    }
+
     @Override
     public String toString() {
-        String ret;
-        switch(this.kind){
-            case PUSH:
-                ret = "push_var";
-                break;
-
-            case STORE:
-                ret = "store_var";
-                break;
-
-            default:
-                ret = "Something went wrong";
-        }
-        return ret + " " + this.integer1 + " " + this.integer2;
+        return "store_var";
     }
 }
 
-class Funct_call_inst extends Instruction {
-    public enum Kind {
-        SET,
-        CALL,
-        LOCALS,
-        RET
+class Push_args implements Instruction {
+    int integer1, integer2;
+
+    public Push_args(int integer1, int integer2) {
+        super();
+        this.integer1 = integer1;
+        this.integer2 = integer2;
     }
-    Kind kind;
-    String integer1, integer2;
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        int temp = EP;
+
+        for(int i = 0; i < integer1; i++) {
+            temp = exe_memo.get(temp);
+        }
+
+        int value = exe_memo.get(temp + 2 + integer2);
+
+        eval_stack.push(value);
+    }
+
+    @Override
+    public String toString() {
+        return "push_args";
+    }
+}
+
+class Store_args implements Instruction {
+    int integer1, integer2;
+
+    public Store_args(int integer1, int integer2) {
+        super();
+        this.integer1 = integer1;
+        this.integer2 = integer2;
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        int temp = EP;
+        int value = eval_stack.pop();
+
+        for(int i = 0; i < integer1; i++) {
+            temp = exe_memo.get(temp);
+        }
+
+        exe_memo.set(temp + 2 + integer2, value);
+    }
+
+    @Override
+    public String toString() {
+        return "store_args";
+    }
+}
+
+class Set_arg implements Instruction {
+    int integer1;
+
+    public Set_arg(int integer1) {
+        super();
+        this.integer1 = integer1;
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+        int value = eval_stack.pop();
+
+        exe_memo.set(EP + 2 + EP, value);
+    }
+
+    @Override
+    public String toString() {
+        return "set_arg " + integer1;
+    }
+}
+
+class Call implements Instruction {
+    int integer1;
     String label;
 
-    public Funct_call_inst(String kind, String integer1, String integer2, String label) {
+    public Call(int integer1, String label) {
         super();
-        this.type = Inst_type.FUNCT_CALL;
-        switch(kind) {
-            case "SET":
-                this.kind = Kind.SET;
-                break;
-
-            case "CALL":
-                this.kind = Kind.CALL;
-                break;
-
-            case "LOCALS":
-                this.kind = Kind.LOCALS;
-                break;
-
-            case "RET":
-                this.kind = Kind.RET;
-                break;
-
-            default:
-                System.err.println("Error: wrong funct call kind");
-                System.exit(1);
-                break;
-        }
         this.integer1 = integer1;
-        this.integer2 = integer2;
         this.label = label;
     }
 
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+
+    }
+
     @Override
     public String toString() {
-        String ret;
-        switch(this.kind){
-            case SET:
-                ret = "set_arg";
-                ret += " " + integer1;
-                break;
-
-            case CALL:
-                ret = "call";
-                ret += " " + integer1 + " " + label;
-                break;
-
-            case LOCALS:
-                ret = "locals";
-                ret += " " + integer1 + " " + integer2;
-                break;
-
-            case RET:
-                ret = "return";
-                break;
-                
-            default:
-                ret = "Something went wrong";
-        }
-        return ret;
+        return "call " + integer1 + " " + label;
     }
 }
 
-class Jump_inst extends Instruction {
-    public enum Kind {
-        JUMP,
-        JEQ,
-        JLT
+class Locals implements Instruction {
+    int integer1, integer2;
+
+    public Locals(int integer1, int integer2) {
+        super();
+        this.integer1 = integer1;
+        this.integer2 = integer2;
     }
-    Kind kind;
-    String label;
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "locals " + integer1 + " " + integer2;
+    }
+}
+
+class Return implements Instruction {
     
-    public Jump_inst(String kind, String label) {
+    public Return() {
         super();
-        this.type = Inst_type.JUMP;
-        switch(kind) {
-            case "JUMP":
-                this.kind = Kind.JUMP;
-                break;
+    }
 
-            case "JEQ":
-                this.kind = Kind.JEQ;
-                break;
-           
-            case "JLT":
-                this.kind = Kind.JLT;
-                break;
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
 
-            default:
-                System.err.println("Error: wrong jump kind");
-                System.exit(1);
-                break;
-        }
-        this.label = label;
     }
 
     @Override
     public String toString() {
-        String ret;
-        switch(this.kind){
-            case JUMP:
-                ret = "jump";
-                break;
-
-            case JEQ:
-                ret = "jeq";
-                break;
-
-            case JLT:
-                ret = "jlt";
-                break;
-                
-            default:
-                ret = "Something went wrong";
-        }
-        return ret + " " + label;
+        return "return";
     }
 }
 
-class Exit_inst extends Instruction {
-    public enum Kind {
-        PRINT,
-        PRINT_STR,
-        PRINT_NL
+class Jump implements Instruction {
+    String label;
+
+    public Jump(String label) {
+        super();
     }
-    Kind kind;
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "jump " + label;
+    }
+}
+
+class Jeq implements Instruction {
+    String label;
+
+    public Jeq(String label) {
+        super();
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "jeq " + label;
+    }
+}
+
+class Jlt implements Instruction {
+    String label;
+
+    public Jlt(String label) {
+        super();
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "jlt " + label;
+    }
+}
+
+class Print implements Instruction {
+    public Print() {
+        super();
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "print";
+    }
+}
+
+class Print_str implements Instruction {
     String string;
-    
-    public Exit_inst(String kind, String string) {
+
+    public Print_str(String string) {
         super();
-        this.type = Inst_type.EXIT;
-        switch(kind) {
-            case "PRINT":
-                this.kind = Kind.PRINT;
-                break;
-
-            case "PRINT_STR":
-                this.kind = Kind.PRINT_STR;
-                break;
-           
-            case "PRINT_NL":
-                this.kind = Kind.PRINT_NL;
-                break;
-
-            default:
-                System.err.println("Error: wrong exit kind");
-                System.exit(1);
-                break;
-        }
         this.string = string;
     }
 
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+
+    }
+
     @Override
     public String toString() {
-        String ret;
-        switch(this.kind){
-            case PRINT:
-                ret = "print";
-                break;
-
-            case PRINT_STR:
-                ret = "print_str";
-                ret += " " + string;
-                break;
-
-            case PRINT_NL:
-                ret = "print_nl";
-                break;
-                
-            default:
-                ret = "Something went wrong";
-        }
-        return ret;
+        return "print_str " + string;
     }
 }
 
+class Print_nl implements Instruction {
+    public Print_nl() {
+        super();
+    }
+
+    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "print_nl";
+    }
+}
