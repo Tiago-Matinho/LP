@@ -324,7 +324,7 @@ class Call implements Instruction {
         tisc.exe_memo.add(tisc.PC);
 
         // salta para a nova label
-        tisc.PC = tisc.labe
+        tisc.PC = tisc.label_manager.get(label);
     }
 
     @Override
@@ -343,13 +343,16 @@ class Locals implements Instruction {
     }
 
     public void execute(TISC tisc) {
-        tisc.exe_memo.add(tisc.EP);
-
-        tisc.exe_memo.add(integer1); //TEST
+        tisc.exe_memo.add(integer1);
         tisc.exe_memo.add(integer2);
 
-        for(int i = 0; i < (integer1 + integer2); i++)
-            tisc.exe_memo.add(0);
+        int start = tisc.exe_memo.get(tisc.EP);
+
+        start = start + 4 + tisc.exe_memo.get(start + 3) + tisc.exe_memo.get(start + 4);
+
+        for(int i = 0; i < integer1 + integer2; i++){
+            tisc.exe_memo.add(tisc.exe_memo.remove(start + i));
+        }
     }
 
     @Override
