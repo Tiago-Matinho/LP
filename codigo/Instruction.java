@@ -281,6 +281,7 @@ class Store_args implements Instruction {
     }
 }
 
+// FIXME
 class Set_arg implements Instruction {
     int integer1;
 
@@ -315,10 +316,15 @@ class Call implements Instruction {
         // Cria um novo RA
         // Cria um CL
         tisc.exe_memo.add(tisc.EP);
+        tisc.EP = tisc.exe_memo.size() - 1;
         // Cria um AL
         int new_AL = 0; //FIXME
         tisc.exe_memo.add(new_AL);
+        // Cria um ER
+        tisc.exe_memo.add(tisc.PC);
 
+        // salta para a nova label
+        tisc.PC = tisc.labe
     }
 
     @Override
