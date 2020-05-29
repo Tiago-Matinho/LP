@@ -1,7 +1,7 @@
 import java.util.*;
 
 public interface Instruction {
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP);
+    public void execute(TISC tisc);
     public String toString();
 }
 
@@ -10,15 +10,15 @@ class Add implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        if(eval_stack.size() < 2)
+    public void execute(TISC tisc) {
+        if(tisc.eval_stack.size() < 2)
             System.err.println("Not enough arguments to ADD\n");
 
         else{
-            Integer b = eval_stack.pop();
-            Integer a = eval_stack.pop();
+            Integer b = tisc.eval_stack.pop();
+            Integer a = tisc.eval_stack.pop();
 
-            eval_stack.push(a + b);
+            tisc.eval_stack.push(a + b);
         }
     }
 
@@ -33,15 +33,15 @@ class Sub implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        if(eval_stack.size() < 2)
+    public void execute(TISC tisc) {
+        if(tisc.eval_stack.size() < 2)
             System.err.println("Not enough arguments to SUB\n");
 
         else{
-            Integer b = eval_stack.pop();
-            Integer a = eval_stack.pop();
+            Integer b = tisc.eval_stack.pop();
+            Integer a = tisc.eval_stack.pop();
 
-            eval_stack.push(a - b);
+            tisc.eval_stack.push(a - b);
         }
     }
 
@@ -56,15 +56,15 @@ class Mult implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        if(eval_stack.size() < 2)
+    public void execute(TISC tisc) {
+        if(tisc.eval_stack.size() < 2)
             System.err.println("Not enough arguments to MULT\n");
 
         else{
-            Integer b = eval_stack.pop();
-            Integer a = eval_stack.pop();
+            Integer b = tisc.eval_stack.pop();
+            Integer a = tisc.eval_stack.pop();
 
-            eval_stack.push(a * b);
+            tisc.eval_stack.push(a * b);
         }
     }
 
@@ -79,15 +79,15 @@ class Div implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        if(eval_stack.size() < 2)
+    public void execute(TISC tisc) {
+        if(tisc.eval_stack.size() < 2)
             System.err.println("Not enough arguments to DIV\n");
 
         else{
-            Integer b = eval_stack.pop();
-            Integer a = eval_stack.pop();
+            Integer b = tisc.eval_stack.pop();
+            Integer a = tisc.eval_stack.pop();
 
-            eval_stack.push(a / b);
+            tisc.eval_stack.push(a / b);
         }
     }
 
@@ -102,15 +102,15 @@ class Mod implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        if(eval_stack.size() < 2)
+    public void execute(TISC tisc) {
+        if(tisc.eval_stack.size() < 2)
             System.err.println("Not enough arguments to MOD\n");
 
         else{
-            Integer b = eval_stack.pop();
-            Integer a = eval_stack.pop();
+            Integer b = tisc.eval_stack.pop();
+            Integer a = tisc.eval_stack.pop();
 
-            eval_stack.push(a % b);
+            tisc.eval_stack.push(a % b);
         }
     }
 
@@ -125,15 +125,15 @@ class Exp implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        if(eval_stack.size() < 2)
+    public void execute(TISC tisc) {
+        if(tisc.eval_stack.size() < 2)
             System.err.println("Not enough arguments to EXP\n");
 
         else{
-            Integer b = eval_stack.pop();
-            Integer a = eval_stack.pop();
+            Integer b = tisc.eval_stack.pop();
+            Integer a = tisc.eval_stack.pop();
 
-            eval_stack.push(a ^ b);
+            tisc.eval_stack.push(a ^ b);
         }
     }
 
@@ -151,8 +151,8 @@ class Push_int implements Instruction {
         this.integer = integer;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        eval_stack.push(integer);
+    public void execute(TISC tisc) {
+        tisc.eval_stack.push(integer);
     }
 
     @Override
@@ -161,6 +161,7 @@ class Push_int implements Instruction {
     }
 }
 
+// FIXME
 class Push_var implements Instruction {
     int integer1, integer2;
 
@@ -170,16 +171,19 @@ class Push_var implements Instruction {
         this.integer2 = integer2;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        int temp = EP;
+    public void execute(TISC tisc) {
+        int temp = tisc.EP;
 
+        // faz chegar a temp ao Ra certo
         for(int i = 0; i < integer1; i++) {
-            temp = exe_memo.get(temp);
+            temp = tisc.exe_memo.get(temp);
         }
         
-        int value = exe_memo.get(temp + 2 + integer2);
+        // contas baseadas nos diagramas
+        int n_args = tisc.exe_memo.get(temp + 2); // salta AL, ER
+        int value = tisc.exe_memo.get(temp + 3 + n_args + integer2);
 
-        eval_stack.push(value);
+        tisc.eval_stack.push(value);
     }
 
     @Override
@@ -188,6 +192,7 @@ class Push_var implements Instruction {
     }
 }
 
+// FIXME
 class Store_var implements Instruction {
     int integer1, integer2;
 
@@ -197,15 +202,19 @@ class Store_var implements Instruction {
         this.integer2 = integer2;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        int temp = EP;
-        int value = eval_stack.pop();
+    public void execute(TISC tisc) {
+        int temp = tisc.EP;
 
+        int value = tisc.eval_stack.pop();
+
+        // faz chegar a temp o contexto certo
         for(int i = 0; i < integer1; i++) {
-            temp = exe_memo.get(temp);
+            temp = tisc.exe_memo.get(temp);
         }
 
-        exe_memo.set(temp + 2 + integer2, value);
+        // contas baseadas nos diagramas
+        int n_args = tisc.exe_memo.get(temp + 2); // salta AL, ER
+        tisc.exe_memo.set(temp + 3 + n_args + integer2, value);
     }
 
     @Override
@@ -214,6 +223,7 @@ class Store_var implements Instruction {
     }
 }
 
+// FIXME
 class Push_args implements Instruction {
     int integer1, integer2;
 
@@ -223,16 +233,17 @@ class Push_args implements Instruction {
         this.integer2 = integer2;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        int temp = EP;
+    public void execute(TISC tisc) {
+        int temp = tisc.EP;
 
+        // faz chegar a temp o contexto certo
         for(int i = 0; i < integer1; i++) {
-            temp = exe_memo.get(temp);
+            temp = tisc.exe_memo.get(temp);
         }
 
-        int value = exe_memo.get(temp + 2 + integer2);
+        int value = tisc.exe_memo.get(temp + 3 + integer2);
 
-        eval_stack.push(value);
+        tisc.eval_stack.push(value);
     }
 
     @Override
@@ -241,6 +252,7 @@ class Push_args implements Instruction {
     }
 }
 
+// FIXME
 class Store_args implements Instruction {
     int integer1, integer2;
 
@@ -250,15 +262,17 @@ class Store_args implements Instruction {
         this.integer2 = integer2;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        int temp = EP;
-        int value = eval_stack.pop();
+    public void execute(TISC tisc) {
+        int temp = tisc.EP;
+        int value = tisc.eval_stack.pop();
 
+        // faz chegar a temp o contexto certo
         for(int i = 0; i < integer1; i++) {
-            temp = exe_memo.get(temp);
+            temp = tisc.exe_memo.get(temp);
         }
 
-        exe_memo.set(temp + 2 + integer2, value);
+
+        tisc.exe_memo.set(temp + 3 + integer2, value);
     }
 
     @Override
@@ -275,10 +289,10 @@ class Set_arg implements Instruction {
         this.integer1 = integer1;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-        int value = eval_stack.pop();
+    public void execute(TISC tisc) {
+        int value = tisc.eval_stack.pop();
 
-        exe_memo.set(EP + 2 + EP, value);
+        tisc.exe_memo.set(tisc.EP + 4 + integer1, value);
     }
 
     @Override
@@ -297,7 +311,13 @@ class Call implements Instruction {
         this.label = label;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+    public void execute(TISC tisc) {
+        // Cria um novo RA
+        // Cria um CL
+        tisc.exe_memo.add(tisc.EP);
+        // Cria um AL
+        int new_AL = 0; //FIXME
+        tisc.exe_memo.add(new_AL);
 
     }
 
@@ -316,8 +336,14 @@ class Locals implements Instruction {
         this.integer2 = integer2;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+    public void execute(TISC tisc) {
+        tisc.exe_memo.add(tisc.EP);
 
+        tisc.exe_memo.add(integer1); //TEST
+        tisc.exe_memo.add(integer2);
+
+        for(int i = 0; i < (integer1 + integer2); i++)
+            tisc.exe_memo.add(0);
     }
 
     @Override
@@ -332,8 +358,8 @@ class Return implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-
+    public void execute(TISC tisc) {
+        //TODO
     }
 
     @Override
@@ -349,8 +375,8 @@ class Jump implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-
+    public void execute(TISC tisc) {
+        tisc.PC = tisc.label_manager.get(label); //TEST
     }
 
     @Override
@@ -366,8 +392,12 @@ class Jeq implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+    public void execute(TISC tisc) {
+        int b = tisc.eval_stack.pop();
+        int a = tisc.eval_stack.pop();
 
+        if(a == b)
+            tisc.PC = tisc.label_manager.get(label); //TEST
     }
 
     @Override
@@ -383,8 +413,12 @@ class Jlt implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+    public void execute(TISC tisc) {
+        int b = tisc.eval_stack.pop();
+        int a = tisc.eval_stack.pop();
 
+        if(a < b)
+            tisc.PC = tisc.label_manager.get(label); //TEST
     }
 
     @Override
@@ -398,8 +432,10 @@ class Print implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
+    public void execute(TISC tisc) {
+        int a = tisc.eval_stack.pop();
 
+        System.out.print(a);
     }
 
     @Override
@@ -416,8 +452,8 @@ class Print_str implements Instruction {
         this.string = string;
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-
+    public void execute(TISC tisc) {
+        System.out.print(string);
     }
 
     @Override
@@ -431,8 +467,8 @@ class Print_nl implements Instruction {
         super();
     }
 
-    public void execute(Stack<Integer> eval_stack, Vector<Integer> exe_memo, int EP) {
-
+    public void execute(TISC tisc) {
+        System.out.println();
     }
 
     @Override

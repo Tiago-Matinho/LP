@@ -6,6 +6,7 @@ public class TISC {
 	int EP, PC, CL;
 	Vector<Instruction> inst_memo;
 	HashMap<String, Integer> label_manager;
+	HashMap<Integer, String> label_manager_aux;
 	Stack<Integer> eval_stack;
 	Vector<Integer> exe_memo;
 
@@ -14,12 +15,14 @@ public class TISC {
 		this.PC = 0;
 		this.inst_memo = new Vector<Instruction>();
 		this.label_manager = new HashMap<String, Integer>();
+		this.label_manager_aux = new HashMap<Integer, String>();
 		this.eval_stack = new Stack<Integer>();
 		this.exe_memo = new Vector<Integer>();
 	}
 
 	public void label_new(String label) {
 		label_manager.put(label, inst_memo.size());
+		label_manager_aux.put(inst_memo.size(), label);
 	}
 
 	public void aritmetic_inst_new(String kind) {
