@@ -1,5 +1,3 @@
-import java.util.*;
-
 public interface Instruction {
     public void execute(TISC tisc);
     public String toString();
@@ -161,7 +159,6 @@ class Push_int implements Instruction {
     }
 }
 
-// FIXME
 class Push_var implements Instruction {
     int integer1, integer2;
 
@@ -176,7 +173,7 @@ class Push_var implements Instruction {
 
         // faz chegar a temp ao Ra certo
         for(int i = 0; i < integer1; i++) {
-            temp = tisc.exe_memo.get(temp);
+            temp = tisc.exe_memo.get(temp + 1);
         }
         
         // contas baseadas nos diagramas
@@ -192,7 +189,6 @@ class Push_var implements Instruction {
     }
 }
 
-// FIXME
 class Store_var implements Instruction {
     int integer1, integer2;
 
@@ -209,7 +205,7 @@ class Store_var implements Instruction {
 
         // faz chegar a temp o contexto certo
         for(int i = 0; i < integer1; i++) {
-            temp = tisc.exe_memo.get(temp);
+            temp = tisc.exe_memo.get(temp + 1);
         }
 
         // contas baseadas nos diagramas
@@ -223,7 +219,6 @@ class Store_var implements Instruction {
     }
 }
 
-// FIXME
 class Push_args implements Instruction {
     int integer1, integer2;
 
@@ -238,7 +233,7 @@ class Push_args implements Instruction {
 
         // faz chegar a temp o contexto certo
         for(int i = 0; i < integer1; i++) {
-            temp = tisc.exe_memo.get(temp);
+            temp = tisc.exe_memo.get(temp + 1);
         }
 
         int value = tisc.exe_memo.get(temp + 3 + integer2);
@@ -252,7 +247,6 @@ class Push_args implements Instruction {
     }
 }
 
-// FIXME
 class Store_args implements Instruction {
     int integer1, integer2;
 
@@ -268,7 +262,7 @@ class Store_args implements Instruction {
 
         // faz chegar a temp o contexto certo
         for(int i = 0; i < integer1; i++) {
-            temp = tisc.exe_memo.get(temp);
+            temp = tisc.exe_memo.get(temp + 1);
         }
 
 
@@ -281,7 +275,6 @@ class Store_args implements Instruction {
     }
 }
 
-// FIXME
 class Set_arg implements Instruction {
     int integer1;
 
@@ -293,7 +286,10 @@ class Set_arg implements Instruction {
     public void execute(TISC tisc) {
         int value = tisc.eval_stack.pop();
 
-        tisc.exe_memo.set(tisc.EP + 4 + integer1, value);
+        int n_args = tisc.EP + 3;
+        int n_vars = tisc.EP + 4;
+
+        tisc.exe_memo.set(tisc.EP + 4 + n_args + n_vars + integer1, value);
     }
 
     @Override
@@ -318,11 +314,10 @@ class Call implements Instruction {
         tisc.exe_memo.add(tisc.EP);
         tisc.EP = tisc.exe_memo.size() - 1;
         // Cria um AL
-        int new_AL = 0; //FIXME
+        int new_AL = 0; //FIXME aquele loop que vai ate ao 0 -1 e >1
         tisc.exe_memo.add(new_AL);
         // Cria um ER
         tisc.exe_memo.add(tisc.PC);
-
         // salta para a nova label
         tisc.PC = tisc.label_manager.get(label);
     }
@@ -343,6 +338,8 @@ class Locals implements Instruction {
     }
 
     public void execute(TISC tisc) {
+
+        //FIXME remover o que foi adicionado no setargs
         tisc.exe_memo.add(integer1);
         tisc.exe_memo.add(integer2);
 
@@ -368,7 +365,7 @@ class Return implements Instruction {
     }
 
     public void execute(TISC tisc) {
-        //TODO
+        //TODO return para onde foi chamado (ER)
     }
 
     @Override
