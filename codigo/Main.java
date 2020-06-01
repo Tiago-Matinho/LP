@@ -12,7 +12,9 @@ public class Main {
 	maquina = (TISC) aParser.parse().value;
 	
 	// e executa-o
-	if (maquina != null)
-	  maquina.executa();
+	if (maquina != null){
+		maquina.imprime();
+		maquina.guarda();
+	}
   }
 }

@@ -59,10 +59,10 @@ instrucao ::=	ADD									{: maquina.aritmetic_inst_new("ADD"); :}
 			|   PUSH_ARG INTEIRO:d INTEIRO:n		{: maquina.access_args_inst_new("PUSH", d, n); :}
 			|   STORE_VAR INTEIRO:d INTEIRO:n		{: maquina.access_vars_inst_new("STORE", d, n); :}
 			|   STORE_ARG INTEIRO:d INTEIRO:n		{: maquina.access_args_inst_new("STORE", d, n); :}
-			|   SET_ARG INTEIRO:n					{: maquina.funct_call_inst_new("SET", n, null, null); :}
+			|   SET_ARG INTEIRO:n					{: maquina.funct_call_inst_new("SET_ARG", n, null, null); :}
 			|   CALL INTEIRO:d IDENTIFICADOR:p		{: maquina.funct_call_inst_new("CALL", d, null, p); :}
 			|   LOCALS INTEIRO:a INTEIRO:v			{: maquina.funct_call_inst_new("LOCALS", a, v, null); :}
-			|   RETURN								{: maquina.funct_call_inst_new("RET", null, null, null); :}
+			|   RETURN								{: maquina.funct_call_inst_new("RETURN", null, null, null); :}
 			|   JUMP IDENTIFICADOR:e				{: maquina.jump_inst_new("JUMP", e); :}
 			|   JEQ IDENTIFICADOR:e					{: maquina.jump_inst_new("JEQ", e); :}
 			|   JLT IDENTIFICADOR:e					{: maquina.jump_inst_new("JLT", e); :}

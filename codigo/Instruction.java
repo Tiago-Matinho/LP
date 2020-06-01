@@ -1,9 +1,12 @@
+import java.io.*;
+import java.util.*;
+
 public interface Instruction {
     public void execute(TISC tisc);
     public String toString();
 }
 
-class Add implements Instruction {
+class Add implements Instruction, Serializable {
     public Add() {
         super();
     }
@@ -17,6 +20,7 @@ class Add implements Instruction {
             Integer a = tisc.eval_stack.pop();
 
             tisc.eval_stack.push(a + b);
+            tisc.PC++;
         }
     }
 
@@ -26,7 +30,7 @@ class Add implements Instruction {
     }
 }
 
-class Sub implements Instruction {
+class Sub implements Instruction, Serializable {
     public Sub() {
         super();
     }
@@ -40,6 +44,7 @@ class Sub implements Instruction {
             Integer a = tisc.eval_stack.pop();
 
             tisc.eval_stack.push(a - b);
+            tisc.PC++;
         }
     }
 
@@ -49,7 +54,7 @@ class Sub implements Instruction {
     }
 }
 
-class Mult implements Instruction {
+class Mult implements Instruction, Serializable {
     public Mult() {
         super();
     }
@@ -63,6 +68,7 @@ class Mult implements Instruction {
             Integer a = tisc.eval_stack.pop();
 
             tisc.eval_stack.push(a * b);
+            tisc.PC++;
         }
     }
 
@@ -72,7 +78,7 @@ class Mult implements Instruction {
     }
 }
 
-class Div implements Instruction {
+class Div implements Instruction, Serializable {
     public Div() {
         super();
     }
@@ -86,6 +92,7 @@ class Div implements Instruction {
             Integer a = tisc.eval_stack.pop();
 
             tisc.eval_stack.push(a / b);
+            tisc.PC++;
         }
     }
 
@@ -95,7 +102,7 @@ class Div implements Instruction {
     }
 }
 
-class Mod implements Instruction {
+class Mod implements Instruction, Serializable {
     public Mod() {
         super();
     }
@@ -109,6 +116,7 @@ class Mod implements Instruction {
             Integer a = tisc.eval_stack.pop();
 
             tisc.eval_stack.push(a % b);
+            tisc.PC++;
         }
     }
 
@@ -118,7 +126,7 @@ class Mod implements Instruction {
     }
 }
 
-class Exp implements Instruction {
+class Exp implements Instruction, Serializable {
     public Exp() {
         super();
     }
@@ -132,6 +140,7 @@ class Exp implements Instruction {
             Integer a = tisc.eval_stack.pop();
 
             tisc.eval_stack.push(a ^ b);
+            tisc.PC++;
         }
     }
 
@@ -141,7 +150,7 @@ class Exp implements Instruction {
     }
 }
 
-class Push_int implements Instruction {
+class Push_int implements Instruction, Serializable {
     int integer;
 
     public Push_int(int integer) {
@@ -151,6 +160,7 @@ class Push_int implements Instruction {
 
     public void execute(TISC tisc) {
         tisc.eval_stack.push(integer);
+        tisc.PC++;
     }
 
     @Override
@@ -159,7 +169,7 @@ class Push_int implements Instruction {
     }
 }
 
-class Push_var implements Instruction {
+class Push_var implements Instruction, Serializable {
     int integer1, integer2;
 
     public Push_var(int integer1, int integer2) {
@@ -172,24 +182,25 @@ class Push_var implements Instruction {
         int temp = tisc.EP;
 
         // faz chegar a temp ao Ra certo
-        for(int i = 0; i < integer1; i++) {
+        for(int i = 0; i < integer1; i++)
             temp = tisc.exe_memo.get(temp + 1);
-        }
+
         
         // contas baseadas nos diagramas
         int n_args = tisc.exe_memo.get(temp + 2); // salta AL, ER
         int value = tisc.exe_memo.get(temp + 3 + n_args + integer2);
 
         tisc.eval_stack.push(value);
+        tisc.PC++;
     }
 
     @Override
     public String toString() {
-        return "push_var";
+        return "push_var " + integer1 + " " + integer2;
     }
 }
 
-class Store_var implements Instruction {
+class Store_var implements Instruction, Serializable {
     int integer1, integer2;
 
     public Store_var(int integer1, int integer2) {
@@ -204,22 +215,23 @@ class Store_var implements Instruction {
         int value = tisc.eval_stack.pop();
 
         // faz chegar a temp o contexto certo
-        for(int i = 0; i < integer1; i++) {
+        for(int i = 0; i < integer1; i++)
             temp = tisc.exe_memo.get(temp + 1);
-        }
+
 
         // contas baseadas nos diagramas
         int n_args = tisc.exe_memo.get(temp + 2); // salta AL, ER
         tisc.exe_memo.set(temp + 3 + n_args + integer2, value);
+        tisc.PC++;
     }
 
     @Override
     public String toString() {
-        return "store_var";
+        return "store_var " + integer1 + " " + integer2;
     }
 }
 
-class Push_args implements Instruction {
+class Push_args implements Instruction, Serializable {
     int integer1, integer2;
 
     public Push_args(int integer1, int integer2) {
@@ -239,15 +251,16 @@ class Push_args implements Instruction {
         int value = tisc.exe_memo.get(temp + 3 + integer2);
 
         tisc.eval_stack.push(value);
+        tisc.PC++;
     }
 
     @Override
     public String toString() {
-        return "push_args";
+        return "push_args " + integer1 + " " + integer2;
     }
 }
 
-class Store_args implements Instruction {
+class Store_args implements Instruction, Serializable {
     int integer1, integer2;
 
     public Store_args(int integer1, int integer2) {
@@ -267,15 +280,16 @@ class Store_args implements Instruction {
 
 
         tisc.exe_memo.set(temp + 3 + integer2, value);
+        tisc.PC++;
     }
 
     @Override
     public String toString() {
-        return "store_args";
+        return "store_args " + integer1 + " " + integer2;
     }
 }
 
-class Set_arg implements Instruction {
+class Set_arg implements Instruction, Serializable {
     int integer1;
 
     public Set_arg(int integer1) {
@@ -290,6 +304,7 @@ class Set_arg implements Instruction {
         int n_vars = tisc.EP + 4;
 
         tisc.exe_memo.set(tisc.EP + 4 + n_args + n_vars + integer1, value);
+        tisc.PC++;
     }
 
     @Override
@@ -298,7 +313,7 @@ class Set_arg implements Instruction {
     }
 }
 
-class Call implements Instruction {
+class Call implements Instruction, Serializable {
     int integer1;
     String label;
 
@@ -314,7 +329,23 @@ class Call implements Instruction {
         tisc.exe_memo.add(tisc.EP);
         tisc.EP = tisc.exe_memo.size() - 1;
         // Cria um AL
-        int new_AL = 0; //FIXME aquele loop que vai ate ao 0 -1 e >1
+        /*-1 o AL = CL do bloco atual
+        0 entao AL = AL do bloco atual
+        >0 chamada recursiva do AL até chegar ao scope que fica a zero
+        */
+        int new_AL;
+
+        if(integer1 < 0)
+            new_AL = tisc.EP;
+
+        else{
+            new_AL = tisc.exe_memo.get(tisc.EP + 1);
+
+            for(int i = 0; i < integer1; i++)
+                new_AL = tisc.exe_memo.get(new_AL + 1);
+
+            new_AL = tisc.exe_memo.get(new_AL);
+        }
         tisc.exe_memo.add(new_AL);
         // Cria um ER
         tisc.exe_memo.add(tisc.PC);
@@ -328,7 +359,7 @@ class Call implements Instruction {
     }
 }
 
-class Locals implements Instruction {
+class Locals implements Instruction, Serializable {
     int integer1, integer2;
 
     public Locals(int integer1, int integer2) {
@@ -339,17 +370,22 @@ class Locals implements Instruction {
 
     public void execute(TISC tisc) {
 
-        //FIXME remover o que foi adicionado no setargs
+        // adiciona n_args e n_vars
         tisc.exe_memo.add(integer1);
         tisc.exe_memo.add(integer2);
 
+        // vai buscar os argumentos
         int start = tisc.exe_memo.get(tisc.EP);
+        int n_args_ant = tisc.exe_memo.get(start + 3);
+        int n_vars_ant = tisc.exe_memo.get(start + 4);
 
-        start = start + 4 + tisc.exe_memo.get(start + 3) + tisc.exe_memo.get(start + 4);
 
-        for(int i = 0; i < integer1 + integer2; i++){
+        start += 4 + n_args_ant + n_vars_ant;
+
+        for(int i = 0; i < integer1; i++){
             tisc.exe_memo.add(tisc.exe_memo.remove(start + i));
         }
+        tisc.PC++;
     }
 
     @Override
@@ -358,14 +394,14 @@ class Locals implements Instruction {
     }
 }
 
-class Return implements Instruction {
+class Return implements Instruction, Serializable {
     
     public Return() {
         super();
     }
 
     public void execute(TISC tisc) {
-        //TODO return para onde foi chamado (ER)
+        tisc.PC = tisc.label_manager.get(tisc.EP + 2);
     }
 
     @Override
@@ -374,11 +410,12 @@ class Return implements Instruction {
     }
 }
 
-class Jump implements Instruction {
+class Jump implements Instruction, Serializable {
     String label;
 
     public Jump(String label) {
         super();
+        this.label = label;
     }
 
     public void execute(TISC tisc) {
@@ -391,11 +428,12 @@ class Jump implements Instruction {
     }
 }
 
-class Jeq implements Instruction {
+class Jeq implements Instruction, Serializable {
     String label;
 
     public Jeq(String label) {
         super();
+        this.label = label;
     }
 
     public void execute(TISC tisc) {
@@ -412,11 +450,12 @@ class Jeq implements Instruction {
     }
 }
 
-class Jlt implements Instruction {
+class Jlt implements Instruction, Serializable {
     String label;
 
     public Jlt(String label) {
         super();
+        this.label = label;
     }
 
     public void execute(TISC tisc) {
@@ -433,7 +472,7 @@ class Jlt implements Instruction {
     }
 }
 
-class Print implements Instruction {
+class Print implements Instruction, Serializable {
     public Print() {
         super();
     }
@@ -450,7 +489,7 @@ class Print implements Instruction {
     }
 }
 
-class Print_str implements Instruction {
+class Print_str implements Instruction, Serializable {
     String string;
 
     public Print_str(String string) {
@@ -468,7 +507,7 @@ class Print_str implements Instruction {
     }
 }
 
-class Print_nl implements Instruction {
+class Print_nl implements Instruction, Serializable {
     public Print_nl() {
         super();
     }

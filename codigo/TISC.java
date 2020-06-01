@@ -1,8 +1,9 @@
+import java.io.*;
 import java.util.*;
 
 // Tiny Instruction Set Computer
 
-public class TISC {
+public class TISC implements Serializable {
 	int EP, PC, CL;
 	Vector<Instruction> inst_memo;
 	HashMap<String, Integer> label_manager;
@@ -116,7 +117,7 @@ public class TISC {
 	}
 
 	public void jump_inst_new(String kind, String label) {
-		
+
 		switch(kind) {
 			case "JUMP":
 				inst_memo.add(new Jump(label));
@@ -152,9 +153,30 @@ public class TISC {
 	/** Executa o programa TISC carregado na maquina. */
 	public void executa()
 	{
-		for(int i = 0; i < inst_memo.size(); i++) {
-			this.PC++;
-			System.out.println(inst_memo.get(i).toString());
+		this.PC = this.label_manager.get("program");
+
+		while(this.PC < this.inst_memo.size())
+			this.inst_memo.get(this.PC).execute(this);
+	}
+
+	public void guarda()
+	{
+		try (FileOutputStream fos = new FileOutputStream("object.dat");
+			 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+
+			// write object to file
+			oos.writeObject(this);
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
+
+	}
+
+	public void imprime()
+	{
+		for(int i = 0; i < inst_memo.size(); i++)
+			System.out.println(inst_memo.get(i).toString());
 	}
 }
