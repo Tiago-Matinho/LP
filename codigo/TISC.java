@@ -155,8 +155,21 @@ public class TISC implements Serializable {
 	{
 		this.PC = this.label_manager.get("program");
 
-		while(this.PC < this.inst_memo.size())
+        this.exe_memo.add(-1);
+        this.exe_memo.add(-1);
+        this.exe_memo.add(-1);
+
+		while(this.PC < this.inst_memo.size() && this.PC > -1){
+			//System.out.println(this.inst_memo.get(this.PC).toString());
 			this.inst_memo.get(this.PC).execute(this);
+		}
+
+
+		/*System.out.println("\nXE:\n");
+		for(int i = 0; i < this.exe_memo.size(); i++)
+			System.out.println(this.exe_memo.get(i));
+
+		 */
 	}
 
 	public void guarda()
@@ -180,3 +193,4 @@ public class TISC implements Serializable {
 			System.out.println(inst_memo.get(i).toString());
 	}
 }
+
