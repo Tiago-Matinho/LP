@@ -157,7 +157,7 @@ public class TISC implements Serializable {
 	}
 
 	/** Executa o programa TISC carregado na maquina. */
-	public void executa(boolean RA, boolean INST)
+	public void executa(boolean RA, boolean inst, boolean pilha)
 	{
 		this.PC = this.label_manager.get("program");
 
@@ -166,7 +166,7 @@ public class TISC implements Serializable {
         this.exe_memo.add(-1);
 
 		while(this.PC < this.inst_memo.size() && this.PC > -1){
-			if(INST)
+			if(inst)
 				System.out.println("\n+Instrução: " + this.inst_memo.get(this.PC).toString());
 				
 			this.inst_memo.get(this.PC).execute(this);
@@ -174,6 +174,8 @@ public class TISC implements Serializable {
 			if(RA)
 				imprime_RA();
 
+			if(pilha)
+				imprime_pilha();
 		}
 	}
 
@@ -183,6 +185,14 @@ public class TISC implements Serializable {
 
         for(int i = 0; i < this.exe_memo.size(); i++)
 		    System.out.println(this.exe_memo.get(i));
+	}
+
+	public void imprime_pilha()
+	{
+		System.out.println("\n+Pilha:");
+
+        for(int i = 0; i < this.eval_stack.size(); i++)
+		    System.out.println(this.eval_stack.get(i));
 	}
 
 	public void imprime_instrucoes()
