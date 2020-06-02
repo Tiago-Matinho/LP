@@ -197,13 +197,15 @@ class Push_var implements Instruction, Serializable {
 	public void execute(TISC tisc) {
 		int temp = tisc.EP;
 
-		// faz chegar a temp ao Ra certo
+		// Faz chegar a temp ao RA certo seguindo o AL
 		for(int i = 0; i < integer1; i++)
 			temp = tisc.exe_memo.get(temp + 1);
 
 		
-		// contas baseadas nos diagramas
-		int n_args = tisc.exe_memo.get(temp + 3); // salta AL, ER
+		// Contas baseadas nos diagramas:
+		// n_args: Salta CL, AL, ER, n_args
+		// value: Salta CL, AL, ER, n_args, n_vars, args
+		int n_args = tisc.exe_memo.get(temp + 3);
 		int value = tisc.exe_memo.get(temp + 4 + n_args + integer2);
 
 		tisc.eval_stack.push(value);
@@ -230,13 +232,15 @@ class Store_var implements Instruction, Serializable {
 
 		int value = tisc.eval_stack.pop();
 
-		// faz chegar a temp o contexto certo
+		// Faz chegar a temp ao RA certo seguindo o AL
 		for(int i = 0; i < integer1; i++)
 			temp = tisc.exe_memo.get(temp + 1);
 
 
-		// contas baseadas nos diagramas
-		int n_args = tisc.exe_memo.get(temp + 3); // salta AL, ER
+		// Contas baseadas nos diagramas:
+		// n_args: Salta CL, AL, ER, n_args
+		// Sitio certo: Salta CL, AL, ER, n_args, n_vars, args
+		int n_args = tisc.exe_memo.get(temp + 3);
 		tisc.exe_memo.set(temp + 4 + n_args + integer2, value);
 		tisc.PC++;
 	}
@@ -265,11 +269,13 @@ class Push_args implements Instruction, Serializable {
 	public void execute(TISC tisc) {
 		int temp = tisc.EP;
 
-		// faz chegar a temp o contexto certo
+		// Faz chegar a temp ao RA certo seguindo o AL
 		for(int i = 0; i < integer1; i++) {
 			temp = tisc.exe_memo.get(temp + 1);
 		}
 
+		// Contas baseadas nos diagramas:
+		// value: Salta CL, AL, ER, n_args, n_vars
 		int value = tisc.exe_memo.get(temp + 4 + integer2);
 
 		tisc.eval_stack.push(value);
@@ -295,12 +301,13 @@ class Store_args implements Instruction, Serializable {
 		int temp = tisc.EP;
 		int value = tisc.eval_stack.pop();
 
-		// faz chegar a temp o contexto certo
+		// Faz chegar a temp ao RA certo seguindo o AL
 		for(int i = 0; i < integer1; i++) {
 			temp = tisc.exe_memo.get(temp + 1);
 		}
 
-
+		// Contas baseadas nos diagramas:
+		// Sitio certo: Salta CL, AL, ER, n_args, n_vars
 		tisc.exe_memo.set(temp + 4 + integer2, value);
 		tisc.PC++;
 	}
@@ -328,6 +335,7 @@ class Set_arg implements Instruction, Serializable {
 	public void execute(TISC tisc) {
 		int value = tisc.eval_stack.pop();
 
+		// Guarda o novo argumento entre o RA anterior e o proximo
 		tisc.exe_memo.add(value);
 		tisc.PC++;
 	}
@@ -350,17 +358,19 @@ class Call implements Instruction, Serializable {
 
 	public void execute(TISC tisc) {
 		// Cria um novo RA
-		// Cria um CL
-		tisc.exe_memo.add(tisc.EP);
-        int old_EP = tisc.EP;
+		tisc.exe_memo.add(tisc.EP); // Cria um CL
+		
+		// Atualiza o EP
+		int old_EP = tisc.EP;
 		tisc.EP = tisc.exe_memo.size() - 1;
-		// Cria um AL
-		/*-1 o AL = CL do bloco atual
-		0 entao AL = AL do bloco atual
-		>0 chamada recursiva do AL até chegar ao scope que fica a zero
-		*/
-		int new_AL;
 
+		// Cria um AL
+		int new_AL;
+		/* Se integer1 for:
+		-1 -> AL = CL do bloco atual
+		 0 -> AL = AL do bloco atual
+		>0 -> chamada recursiva do AL até chegar ao scope que fica a zero
+		*/
 		if(integer1 < 0)
 			new_AL = tisc.exe_memo.get(tisc.EP);
 
@@ -370,9 +380,10 @@ class Call implements Instruction, Serializable {
 				new_AL = tisc.exe_memo.get(new_AL + 1);
 		}
 		tisc.exe_memo.add(new_AL);
+
 		// Cria um ER
 		tisc.exe_memo.add(tisc.PC + 1);
-		// salta para a nova label
+		// Salta para a nova label
 		tisc.PC = tisc.label_manager.get(label);
 	}
 
@@ -393,11 +404,11 @@ class Locals implements Instruction, Serializable {
 
 	public void execute(TISC tisc) {
 
-		// adiciona n_args e n_vars
+		// Adiciona n_args e n_vars
 		tisc.exe_memo.add(integer1);
 		tisc.exe_memo.add(integer2);
 
-		// vai buscar os argumentos
+		// Vai buscar os argumentos
 		int start = tisc.exe_memo.get(tisc.EP);
         
 		if(start != -1) {
@@ -414,6 +425,7 @@ class Locals implements Instruction, Serializable {
 			}
 		}
 
+		// Inicializa as novas variaveis e argumentos
 		for (int k = 0; k < integer2; k++)
 			tisc.exe_memo.add(-1);
 
@@ -434,9 +446,10 @@ class Return implements Instruction, Serializable {
 
 	public void execute(TISC tisc) {
 		int old_EP = tisc.EP;
-		tisc.PC = tisc.exe_memo.get(tisc.EP + 2);
-		tisc.EP = tisc.exe_memo.get(tisc.EP);
+		tisc.PC = tisc.exe_memo.get(tisc.EP + 2);	// Endereço de retorno
+		tisc.EP = tisc.exe_memo.get(tisc.EP);		// Atualiza o EP
 
+		// Remove o RA que foi retornado
 		while(old_EP - 1 != tisc.exe_memo.size() - 1)
 			tisc.exe_memo.remove(old_EP);
 	}
