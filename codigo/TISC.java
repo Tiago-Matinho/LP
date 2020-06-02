@@ -7,7 +7,6 @@ public class TISC implements Serializable {
 	int EP, PC, CL;
 	Vector<Instruction> inst_memo;
 	HashMap<String, Integer> label_manager;
-	HashMap<Integer, String> label_manager_aux;
 	Stack<Integer> eval_stack;
 	Vector<Integer> exe_memo;
 
@@ -16,15 +15,22 @@ public class TISC implements Serializable {
 		this.PC = 0;
 		this.inst_memo = new Vector<Instruction>();
 		this.label_manager = new HashMap<String, Integer>();
-		this.label_manager_aux = new HashMap<Integer, String>();
 		this.eval_stack = new Stack<Integer>();
 		this.exe_memo = new Vector<Integer>();
 	}
 
+
+	/*********************************************************************|
+	|                         ASSOCIAR LABELS A POS                       |
+	|*********************************************************************/
+
 	public void label_new(String label) {
 		label_manager.put(label, inst_memo.size());
-		label_manager_aux.put(inst_memo.size(), label);
 	}
+
+	/*********************************************************************|
+	|                   CRIAR E ADICIONAR NOVAS INSTRUCOES                |
+	|*********************************************************************/
 
 	public void aritmetic_inst_new(String kind) {
 
@@ -151,7 +157,7 @@ public class TISC implements Serializable {
 	}
 
 	/** Executa o programa TISC carregado na maquina. */
-	public void executa()
+	public void executa(boolean RA, boolean INST)
 	{
 		this.PC = this.label_manager.get("program");
 
@@ -160,34 +166,26 @@ public class TISC implements Serializable {
         this.exe_memo.add(-1);
 
 		while(this.PC < this.inst_memo.size() && this.PC > -1){
-			//System.out.println(this.inst_memo.get(this.PC).toString());
+			if(INST)
+				System.out.println("\n+Instrução: " + this.inst_memo.get(this.PC).toString());
+				
 			this.inst_memo.get(this.PC).execute(this);
+	
+			if(RA)
+				imprime_RA();
+
 		}
-
-
-		/*System.out.println("\nXE:\n");
-		for(int i = 0; i < this.exe_memo.size(); i++)
-			System.out.println(this.exe_memo.get(i));
-
-		 */
 	}
 
-	public void guarda()
-	{
-		try (FileOutputStream fos = new FileOutputStream("object.dat");
-			 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+	public void imprime_RA()
+	{	
+		System.out.println("\n+RA:");
 
-
-			// write object to file
-			oos.writeObject(this);
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-
+        for(int i = 0; i < this.exe_memo.size(); i++)
+		    System.out.println(this.exe_memo.get(i));
 	}
 
-	public void imprime()
+	public void imprime_instrucoes()
 	{
 		for(int i = 0; i < inst_memo.size(); i++)
 			System.out.println(inst_memo.get(i).toString());
