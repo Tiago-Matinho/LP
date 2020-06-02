@@ -1,2 +1,6 @@
 *.class
+parser.java
+registos.lex.java
+sym.java
+Yylex.java
 
