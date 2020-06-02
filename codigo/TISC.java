@@ -178,11 +178,42 @@ public class TISC implements Serializable {
 	}
 
 	public void imprime_RA()
-	{	
+	{	Integer value;
+		int value_len;
+		String value_str, str;
+
+		int n_args, n_vars, start;
+
 		System.out.println("\n+RA:");
 
-        for(int i = 0; i < this.exe_memo.size(); i++)
-		    System.out.println(this.exe_memo.get(i));
+		int i = 0;
+
+		while(i < this.exe_memo.size()){
+			System.out.println("+----------+");
+			
+			start = i;
+
+			n_args = this.exe_memo.get(i + 3);
+			n_vars = this.exe_memo.get(i + 4);
+
+			while(i <= start + 4 + n_args + n_vars){
+				value = this.exe_memo.get(i);
+				value_str = value.toString();
+				value_len = value_str.length();
+				
+				str = "|  ";
+				str += value_str;
+				
+				for(int k = 0; k < (8 - value_len); k++)
+					str += " ";
+				
+				System.out.println(str + "|");
+
+				i++;
+			}
+		}
+		
+		System.out.println("+----------+");
 	}
 
 	public void imprime_instrucoes()
