@@ -300,8 +300,6 @@ class Set_arg implements Instruction, Serializable {
 	public void execute(TISC tisc) {
 		int value = tisc.eval_stack.pop();
 
-		int n_args = tisc.exe_memo.get(tisc.EP + 3);
-		int n_vars = tisc.exe_memo.get(tisc.EP + 4);
 		tisc.exe_memo.add(value);
 		tisc.PC++;
 	}

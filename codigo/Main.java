@@ -13,6 +13,6 @@ public class Main {
 	
 	// e executa-o
 	if (maquina != null)
-	  maquina.executa();
+	  maquina.executa(true, true);
   }
 }
