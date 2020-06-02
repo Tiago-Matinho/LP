@@ -24,13 +24,16 @@ public class TISC implements Serializable {
 	|                         ASSOCIAR LABELS A POS                       |
 	|*********************************************************************/
 
+
 	public void label_new(String label) {
 		label_manager.put(label, inst_memo.size());
 	}
 
+
 	/*********************************************************************|
 	|                   CRIAR E ADICIONAR NOVAS INSTRUCOES                |
 	|*********************************************************************/
+
 
 	public void aritmetic_inst_new(String kind) {
 
@@ -156,6 +159,12 @@ public class TISC implements Serializable {
 		}
 	}
 
+
+	/*********************************************************************|
+	|                   CRIAR E ADICIONAR NOVAS INSTRUCOES                |
+	|*********************************************************************/
+
+	
 	/** Executa o programa TISC carregado na maquina. */
 	public void executa(boolean RA, boolean inst, boolean pilha)
 	{

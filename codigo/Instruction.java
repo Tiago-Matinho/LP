@@ -1,10 +1,14 @@
 import java.io.*;
-import java.util.*;
 
 public interface Instruction {
 	public void execute(TISC tisc);
 	public String toString();
 }
+
+	/*********************************************************************|
+	|                      Instruções aritméticas                         |
+	|*********************************************************************/
+
 
 class Add implements Instruction, Serializable {
 	public Add() {
@@ -150,6 +154,12 @@ class Exp implements Instruction, Serializable {
 	}
 }
 
+
+	/*********************************************************************|
+	|              Instruções para manipulação de inteiros                |
+	|*********************************************************************/
+
+
 class Push_int implements Instruction, Serializable {
 	int integer;
 
@@ -168,6 +178,12 @@ class Push_int implements Instruction, Serializable {
 		return "push_int " + this.integer;
 	}
 }
+
+
+	/*********************************************************************|
+	|                   Instruções de acesso a variáveis                  |
+	|*********************************************************************/
+
 
 class Push_var implements Instruction, Serializable {
 	int integer1, integer2;
@@ -231,6 +247,12 @@ class Store_var implements Instruction, Serializable {
 	}
 }
 
+
+	/*********************************************************************|
+	|                    Instruções de acesso a argumentos                |
+	|*********************************************************************/
+
+
 class Push_args implements Instruction, Serializable {
 	int integer1, integer2;
 
@@ -288,6 +310,12 @@ class Store_args implements Instruction, Serializable {
 		return "store_args " + integer1 + " " + integer2;
 	}
 }
+
+
+	/*********************************************************************|
+	|                   Instruções para chamada de funções                |
+	|*********************************************************************/
+
 
 class Set_arg implements Instruction, Serializable {
 	int integer1;
@@ -419,6 +447,12 @@ class Return implements Instruction, Serializable {
 	}
 }
 
+
+	/*********************************************************************|
+	|                        Instruções de salto                          |
+	|*********************************************************************/
+
+
 class Jump implements Instruction, Serializable {
 	String label;
 
@@ -428,7 +462,7 @@ class Jump implements Instruction, Serializable {
 	}
 
 	public void execute(TISC tisc) {
-		tisc.PC = tisc.label_manager.get(label); //TEST
+		tisc.PC = tisc.label_manager.get(label); // Muda o valor do PC
 	}
 
 	@Override
@@ -446,11 +480,11 @@ class Jeq implements Instruction, Serializable {
 	}
 
 	public void execute(TISC tisc) {
-		int b = tisc.eval_stack.pop();
+		int b = tisc.eval_stack.pop();	// Verifica se a == b
 		int a = tisc.eval_stack.pop();
 
 		if(a == b)
-			tisc.PC = tisc.label_manager.get(label); //TEST
+			tisc.PC = tisc.label_manager.get(label); // Muda o valor do PC
 		else
 			tisc.PC++;
 	}
@@ -470,11 +504,11 @@ class Jlt implements Instruction, Serializable {
 	}
 
 	public void execute(TISC tisc) {
-		int b = tisc.eval_stack.pop();
+		int b = tisc.eval_stack.pop();		// Verifica se a < b
 		int a = tisc.eval_stack.pop();
 
 		if(a < b)
-			tisc.PC = tisc.label_manager.get(label); //TEST
+			tisc.PC = tisc.label_manager.get(label); // Muda o valor do PC
 		else
 			tisc.PC++;
 	}
@@ -485,15 +519,21 @@ class Jlt implements Instruction, Serializable {
 	}
 }
 
+
+	/*********************************************************************|
+	|                          Instruções de saı́da                        |
+	|*********************************************************************/
+
+
 class Print implements Instruction, Serializable {
 	public Print() {
 		super();
 	}
 
 	public void execute(TISC tisc) {
-		int a = tisc.eval_stack.pop();
+		int a = tisc.eval_stack.pop();	// Tira da stack
 
-		System.out.print(a);
+		System.out.print(a);			// Imprime o valor
 		tisc.PC++;
 	}
 
@@ -512,7 +552,7 @@ class Print_str implements Instruction, Serializable {
 	}
 
 	public void execute(TISC tisc) {
-		System.out.print(string);
+		System.out.print(string);		// Imprime a string
 		tisc.PC++;
 	}
 
@@ -528,7 +568,7 @@ class Print_nl implements Instruction, Serializable {
 	}
 
 	public void execute(TISC tisc) {
-		System.out.println();
+		System.out.println();			// Imprime uma nova linha 
 		tisc.PC++;
 	}
 
