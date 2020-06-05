@@ -10,7 +10,7 @@ public interface Instruction {
 	|*********************************************************************/
 
 
-class Add implements Instruction, Serializable {
+class Add implements Instruction {
 	public Add() {
 		super();
 	}
@@ -34,7 +34,7 @@ class Add implements Instruction, Serializable {
 	}
 }
 
-class Sub implements Instruction, Serializable {
+class Sub implements Instruction {
 	public Sub() {
 		super();
 	}
@@ -58,7 +58,7 @@ class Sub implements Instruction, Serializable {
 	}
 }
 
-class Mult implements Instruction, Serializable {
+class Mult implements Instruction {
 	public Mult() {
 		super();
 	}
@@ -82,7 +82,7 @@ class Mult implements Instruction, Serializable {
 	}
 }
 
-class Div implements Instruction, Serializable {
+class Div implements Instruction {
 	public Div() {
 		super();
 	}
@@ -106,7 +106,7 @@ class Div implements Instruction, Serializable {
 	}
 }
 
-class Mod implements Instruction, Serializable {
+class Mod implements Instruction {
 	public Mod() {
 		super();
 	}
@@ -130,7 +130,7 @@ class Mod implements Instruction, Serializable {
 	}
 }
 
-class Exp implements Instruction, Serializable {
+class Exp implements Instruction {
 	public Exp() {
 		super();
 	}
@@ -160,7 +160,7 @@ class Exp implements Instruction, Serializable {
 	|*********************************************************************/
 
 
-class Push_int implements Instruction, Serializable {
+class Push_int implements Instruction {
 	int integer;
 
 	public Push_int(int integer) {
@@ -185,7 +185,7 @@ class Push_int implements Instruction, Serializable {
 	|*********************************************************************/
 
 
-class Push_var implements Instruction, Serializable {
+class Push_var implements Instruction {
 	int integer1, integer2;
 
 	public Push_var(int integer1, int integer2) {
@@ -218,7 +218,7 @@ class Push_var implements Instruction, Serializable {
 	}
 }
 
-class Store_var implements Instruction, Serializable {
+class Store_var implements Instruction {
 	int integer1, integer2;
 
 	public Store_var(int integer1, int integer2) {
@@ -257,7 +257,7 @@ class Store_var implements Instruction, Serializable {
 	|*********************************************************************/
 
 
-class Push_args implements Instruction, Serializable {
+class Push_args implements Instruction {
 	int integer1, integer2;
 
 	public Push_args(int integer1, int integer2) {
@@ -288,7 +288,7 @@ class Push_args implements Instruction, Serializable {
 	}
 }
 
-class Store_args implements Instruction, Serializable {
+class Store_args implements Instruction {
 	int integer1, integer2;
 
 	public Store_args(int integer1, int integer2) {
@@ -324,7 +324,7 @@ class Store_args implements Instruction, Serializable {
 	|*********************************************************************/
 
 
-class Set_arg implements Instruction, Serializable {
+class Set_arg implements Instruction {
 	int integer1;
 
 	public Set_arg(int integer1) {
@@ -346,7 +346,7 @@ class Set_arg implements Instruction, Serializable {
 	}
 }
 
-class Call implements Instruction, Serializable {
+class Call implements Instruction {
 	int integer1;
 	String label;
 
@@ -393,7 +393,7 @@ class Call implements Instruction, Serializable {
 	}
 }
 
-class Locals implements Instruction, Serializable {
+class Locals implements Instruction {
 	int integer1, integer2;
 
 	public Locals(int integer1, int integer2) {
@@ -438,7 +438,7 @@ class Locals implements Instruction, Serializable {
 	}
 }
 
-class Return implements Instruction, Serializable {
+class Return implements Instruction {
 	
 	public Return() {
 		super();
@@ -466,7 +466,7 @@ class Return implements Instruction, Serializable {
 	|*********************************************************************/
 
 
-class Jump implements Instruction, Serializable {
+class Jump implements Instruction {
 	String label;
 
 	public Jump(String label) {
@@ -484,7 +484,7 @@ class Jump implements Instruction, Serializable {
 	}
 }
 
-class Jeq implements Instruction, Serializable {
+class Jeq implements Instruction {
 	String label;
 
 	public Jeq(String label) {
@@ -508,7 +508,7 @@ class Jeq implements Instruction, Serializable {
 	}
 }
 
-class Jlt implements Instruction, Serializable {
+class Jlt implements Instruction {
 	String label;
 
 	public Jlt(String label) {
@@ -538,7 +538,7 @@ class Jlt implements Instruction, Serializable {
 	|*********************************************************************/
 
 
-class Print implements Instruction, Serializable {
+class Print implements Instruction {
 	public Print() {
 		super();
 	}
@@ -556,7 +556,7 @@ class Print implements Instruction, Serializable {
 	}
 }
 
-class Print_str implements Instruction, Serializable {
+class Print_str implements Instruction {
 	String string;
 
 	public Print_str(String string) {
@@ -575,7 +575,7 @@ class Print_str implements Instruction, Serializable {
 	}
 }
 
-class Print_nl implements Instruction, Serializable {
+class Print_nl implements Instruction {
 	public Print_nl() {
 		super();
 	}

@@ -3,7 +3,7 @@ import java.util.*;
 
 // Tiny Instruction Set Computer
 
-public class TISC implements Serializable {
+public class TISC {
 	int EP, PC, CL;
 	Vector<Instruction> inst_memo;
 	HashMap<String, Integer> label_manager;
