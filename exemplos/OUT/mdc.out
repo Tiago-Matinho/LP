@@ -257,7 +257,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 0 1
++Instrução: push_arg 0 1
 
 +RA:
 -1
@@ -279,7 +279,7 @@ O maior divisor comum entre
 +Pilha:
 3544
 
-+Instrução: push_args 0 2
++Instrução: push_arg 0 2
 
 +RA:
 -1
@@ -323,7 +323,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 0 1
++Instrução: push_arg 0 1
 
 +RA:
 -1
@@ -366,7 +366,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 0 2
++Instrução: push_arg 0 2
 
 +RA:
 -1
@@ -388,7 +388,7 @@ O maior divisor comum entre
 +Pilha:
 4232
 
-+Instrução: store_args 0 1
++Instrução: store_arg 0 1
 
 +RA:
 -1
@@ -431,7 +431,7 @@ O maior divisor comum entre
 +Pilha:
 3544
 
-+Instrução: store_args 0 2
++Instrução: store_arg 0 2
 
 +RA:
 -1
@@ -502,7 +502,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -583,7 +583,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -610,7 +610,7 @@ O maior divisor comum entre
 +Pilha:
 4232
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -638,7 +638,7 @@ O maior divisor comum entre
 4232
 4232
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -695,7 +695,7 @@ O maior divisor comum entre
 4232
 1
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -805,7 +805,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -832,7 +832,7 @@ O maior divisor comum entre
 +Pilha:
 3544
 
-+Instrução: store_args 1 1
++Instrução: store_arg 1 1
 
 +RA:
 -1
@@ -885,7 +885,7 @@ O maior divisor comum entre
 +Pilha:
 688
 
-+Instrução: store_args 1 2
++Instrução: store_arg 1 2
 
 +RA:
 -1
@@ -937,7 +937,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1018,7 +1018,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -1045,7 +1045,7 @@ O maior divisor comum entre
 +Pilha:
 3544
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -1073,7 +1073,7 @@ O maior divisor comum entre
 3544
 3544
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1130,7 +1130,7 @@ O maior divisor comum entre
 3544
 5
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1240,7 +1240,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1267,7 +1267,7 @@ O maior divisor comum entre
 +Pilha:
 688
 
-+Instrução: store_args 1 1
++Instrução: store_arg 1 1
 
 +RA:
 -1
@@ -1320,7 +1320,7 @@ O maior divisor comum entre
 +Pilha:
 104
 
-+Instrução: store_args 1 2
++Instrução: store_arg 1 2
 
 +RA:
 -1
@@ -1372,7 +1372,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1453,7 +1453,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -1480,7 +1480,7 @@ O maior divisor comum entre
 +Pilha:
 688
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -1508,7 +1508,7 @@ O maior divisor comum entre
 688
 688
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1565,7 +1565,7 @@ O maior divisor comum entre
 688
 6
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1675,7 +1675,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1702,7 +1702,7 @@ O maior divisor comum entre
 +Pilha:
 104
 
-+Instrução: store_args 1 1
++Instrução: store_arg 1 1
 
 +RA:
 -1
@@ -1755,7 +1755,7 @@ O maior divisor comum entre
 +Pilha:
 64
 
-+Instrução: store_args 1 2
++Instrução: store_arg 1 2
 
 +RA:
 -1
@@ -1807,7 +1807,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -1888,7 +1888,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -1915,7 +1915,7 @@ O maior divisor comum entre
 +Pilha:
 104
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -1943,7 +1943,7 @@ O maior divisor comum entre
 104
 104
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2000,7 +2000,7 @@ O maior divisor comum entre
 104
 1
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2110,7 +2110,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2137,7 +2137,7 @@ O maior divisor comum entre
 +Pilha:
 64
 
-+Instrução: store_args 1 1
++Instrução: store_arg 1 1
 
 +RA:
 -1
@@ -2190,7 +2190,7 @@ O maior divisor comum entre
 +Pilha:
 40
 
-+Instrução: store_args 1 2
++Instrução: store_arg 1 2
 
 +RA:
 -1
@@ -2242,7 +2242,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2323,7 +2323,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -2350,7 +2350,7 @@ O maior divisor comum entre
 +Pilha:
 64
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -2378,7 +2378,7 @@ O maior divisor comum entre
 64
 64
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2435,7 +2435,7 @@ O maior divisor comum entre
 64
 1
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2545,7 +2545,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2572,7 +2572,7 @@ O maior divisor comum entre
 +Pilha:
 40
 
-+Instrução: store_args 1 1
++Instrução: store_arg 1 1
 
 +RA:
 -1
@@ -2625,7 +2625,7 @@ O maior divisor comum entre
 +Pilha:
 24
 
-+Instrução: store_args 1 2
++Instrução: store_arg 1 2
 
 +RA:
 -1
@@ -2677,7 +2677,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2758,7 +2758,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -2785,7 +2785,7 @@ O maior divisor comum entre
 +Pilha:
 40
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -2813,7 +2813,7 @@ O maior divisor comum entre
 40
 40
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2870,7 +2870,7 @@ O maior divisor comum entre
 40
 1
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -2980,7 +2980,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3007,7 +3007,7 @@ O maior divisor comum entre
 +Pilha:
 24
 
-+Instrução: store_args 1 1
++Instrução: store_arg 1 1
 
 +RA:
 -1
@@ -3060,7 +3060,7 @@ O maior divisor comum entre
 +Pilha:
 16
 
-+Instrução: store_args 1 2
++Instrução: store_arg 1 2
 
 +RA:
 -1
@@ -3112,7 +3112,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3193,7 +3193,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -3220,7 +3220,7 @@ O maior divisor comum entre
 +Pilha:
 24
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -3248,7 +3248,7 @@ O maior divisor comum entre
 24
 24
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3305,7 +3305,7 @@ O maior divisor comum entre
 24
 1
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3415,7 +3415,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3442,7 +3442,7 @@ O maior divisor comum entre
 +Pilha:
 16
 
-+Instrução: store_args 1 1
++Instrução: store_arg 1 1
 
 +RA:
 -1
@@ -3495,7 +3495,7 @@ O maior divisor comum entre
 +Pilha:
 8
 
-+Instrução: store_args 1 2
++Instrução: store_arg 1 2
 
 +RA:
 -1
@@ -3547,7 +3547,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3628,7 +3628,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -3655,7 +3655,7 @@ O maior divisor comum entre
 +Pilha:
 16
 
-+Instrução: push_args 1 1
++Instrução: push_arg 1 1
 
 +RA:
 -1
@@ -3683,7 +3683,7 @@ O maior divisor comum entre
 16
 16
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3740,7 +3740,7 @@ O maior divisor comum entre
 16
 2
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3850,7 +3850,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -3877,7 +3877,7 @@ O maior divisor comum entre
 +Pilha:
 8
 
-+Instrução: store_args 1 1
++Instrução: store_arg 1 1
 
 +RA:
 -1
@@ -3930,7 +3930,7 @@ O maior divisor comum entre
 +Pilha:
 0
 
-+Instrução: store_args 1 2
++Instrução: store_arg 1 2
 
 +RA:
 -1
@@ -3982,7 +3982,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 1 2
++Instrução: push_arg 1 2
 
 +RA:
 -1
@@ -4084,7 +4084,7 @@ O maior divisor comum entre
 
 +Pilha:
 
-+Instrução: push_args 0 1
++Instrução: push_arg 0 1
 
 +RA:
 -1

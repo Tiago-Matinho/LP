@@ -1,0 +1,72 @@
+
+import java_cup.runtime.*;
+
+action code {:
+  // cria uma instancia da maquina
+  TISC maquina = new TISC();
+:} ;
+
+parser code {:
+  Yylex lexer;
+
+  public void report_error(String message, Object error_info) {
+    Symbol info = (Symbol) error_info;
+
+    System.err.print("** " + message);
+    System.err.println(" at `" + info.value + "' in position " + info.left
+		       + " **");
+  }
+
+  public void report_fatal_error(String message, Object e) {
+    System.err.println("** " + message);
+  }
+:} ;
+
+init with {: lexer = new Yylex(System.in); :} ;
+
+scan with {: return lexer.yylex(); :} ;
+
+terminal        ADD, SUB, MULT, DIV, MOD, EXP ;
+terminal        PUSH_INT, PUSH_VAR, STORE_VAR, PUSH_ARG, STORE_ARG ;
+terminal        SET_ARG, CALL, LOCALS, RETURN ;
+terminal        JUMP, JEQ, JLT ;
+terminal        PRINT, PRINT_STR, PRINT_NL ;
+terminal String IDENTIFICADOR ;
+terminal String	INTEIRO, STRING ;
+terminal        DOIS_PONTOS;
+terminal		ERRO ;
+
+non terminal TISC programa ;
+non terminal      etiqueta, instrucao ;
+
+
+programa ::= 	programa etiqueta instrucao			{: RESULT = maquina; :}
+         	|	/*VAZIO*/
+	 		;
+
+etiqueta ::= 	IDENTIFICADOR:e DOIS_PONTOS			{: maquina.label_new(e); :}
+	 		|	/*VAZIO*/
+	 		;
+
+instrucao ::=	ADD									{: maquina.aritmetic_inst_new("ADD"); :}
+			|   SUB									{: maquina.aritmetic_inst_new("SUB"); :}
+			|   MULT								{: maquina.aritmetic_inst_new("MULT"); :}
+			|   DIV									{: maquina.aritmetic_inst_new("DIV"); :}
+			|   MOD									{: maquina.aritmetic_inst_new("MOD"); :}
+			|   EXP									{: maquina.aritmetic_inst_new("EXP"); :}
+			|   PUSH_INT INTEIRO:i					{: maquina.man_int_inst_new(i); :}
+			|   PUSH_VAR INTEIRO:d INTEIRO:n		{: maquina.access_vars_inst_new("PUSH", d, n); :}
+			|   PUSH_ARG INTEIRO:d INTEIRO:n		{: maquina.access_args_inst_new("PUSH", d, n); :}
+			|   STORE_VAR INTEIRO:d INTEIRO:n		{: maquina.access_vars_inst_new("STORE", d, n); :}
+			|   STORE_ARG INTEIRO:d INTEIRO:n		{: maquina.access_args_inst_new("STORE", d, n); :}
+			|   SET_ARG INTEIRO:n					{: maquina.funct_call_inst_new("SET_ARG", n, null, null); :}
+			|   CALL INTEIRO:d IDENTIFICADOR:p		{: maquina.funct_call_inst_new("CALL", d, null, p); :}
+			|   LOCALS INTEIRO:a INTEIRO:v			{: maquina.funct_call_inst_new("LOCALS", a, v, null); :}
+			|   RETURN								{: maquina.funct_call_inst_new("RETURN", null, null, null); :}
+			|   JUMP IDENTIFICADOR:e				{: maquina.jump_inst_new("JUMP", e); :}
+			|   JEQ IDENTIFICADOR:e					{: maquina.jump_inst_new("JEQ", e); :}
+			|   JLT IDENTIFICADOR:e					{: maquina.jump_inst_new("JLT", e); :}
+			|   PRINT								{: maquina.exit_inst_new("PRINT", null); :}
+			|   PRINT_STR STRING:s					{: maquina.exit_inst_new("PRINT_STR", s); :}
+			|   PRINT_NL							{: maquina.exit_inst_new("PRINT_NL", null); :}
+	  		;

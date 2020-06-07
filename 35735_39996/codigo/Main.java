@@ -13,7 +13,7 @@ public class Main {
 	
 	// e executa-o
 	if (maquina != null)
-	  maquina.executa(true, true, true); // RA, nome_inst, pilha_avaliacao
+	  maquina.executa(false, false, false); // RA, nome_inst, pilha_avaliacao
 											// true, true, true para debug
   }
 }

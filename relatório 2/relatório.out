@@ -1,0 +1,32 @@
+\BOOKMARK [1][-]{section.1}{Introdu\347\343o}{}% 1
+\BOOKMARK [1][-]{section.2}{Corre\347\365es do Trabalho Anterior}{}% 2
+\BOOKMARK [1][-]{section.3}{Registos de Ativa\347\343o}{}% 3
+\BOOKMARK [1][-]{section.4}{Estruturas de dados}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Mem\363ria de Instru\347\365es}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Mem\363ria de Execu\347\343o}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Stack de Avalia\347\343o}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.4}{Gestor de Etiquetas}{section.4}% 8
+\BOOKMARK [1][-]{section.5}{Funcionamento das Instru\347\365es}{}% 9
+\BOOKMARK [2][-]{subsection.5.1}{Add}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.2}{Sub}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.3}{Mult}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.4}{Div}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.5}{Mod}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.6}{Exp}{section.5}% 15
+\BOOKMARK [2][-]{subsection.5.7}{Push int}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.8}{Push var}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.9}{Store var}{section.5}% 18
+\BOOKMARK [2][-]{subsection.5.10}{Push arg}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.11}{Store arg}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.12}{Set arg}{section.5}% 21
+\BOOKMARK [2][-]{subsection.5.13}{Call}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.14}{Locals}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.15}{Return}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.16}{Jump}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.17}{Jeq}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.18}{Jlt}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.19}{Print}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.20}{Print str}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.21}{Print nl}{section.5}% 30
+\BOOKMARK [1][-]{section.6}{Execu\347\343o}{}% 31
+\BOOKMARK [1][-]{section.7}{Refer\352ncias}{}% 32

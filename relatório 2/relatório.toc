@@ -1,0 +1,33 @@
+\babel@toc {portuguese}{}
+\contentsline {section}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{2}{section.1}%
+\contentsline {section}{\numberline {2}Corre\IeC {\c c}\IeC {\~o}es do Trabalho Anterior}{2}{section.2}%
+\contentsline {section}{\numberline {3}Registos de Ativa\IeC {\c c}\IeC {\~a}o}{2}{section.3}%
+\contentsline {section}{\numberline {4}Estruturas de dados}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Mem\IeC {\'o}ria de Instru\IeC {\c c}\IeC {\~o}es}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Mem\IeC {\'o}ria de Execu\IeC {\c c}\IeC {\~a}o}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Stack de Avalia\IeC {\c c}\IeC {\~a}o}{4}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Gestor de Etiquetas}{4}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Funcionamento das Instru\IeC {\c c}\IeC {\~o}es}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Add}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Sub}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Mult}{5}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Div}{5}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Mod}{5}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Exp}{5}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Push int}{6}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.8}Push var}{6}{subsection.5.8}%
+\contentsline {subsection}{\numberline {5.9}Store var}{6}{subsection.5.9}%
+\contentsline {subsection}{\numberline {5.10}Push arg}{7}{subsection.5.10}%
+\contentsline {subsection}{\numberline {5.11}Store arg}{7}{subsection.5.11}%
+\contentsline {subsection}{\numberline {5.12}Set arg}{7}{subsection.5.12}%
+\contentsline {subsection}{\numberline {5.13}Call}{8}{subsection.5.13}%
+\contentsline {subsection}{\numberline {5.14}Locals}{9}{subsection.5.14}%
+\contentsline {subsection}{\numberline {5.15}Return}{9}{subsection.5.15}%
+\contentsline {subsection}{\numberline {5.16}Jump}{10}{subsection.5.16}%
+\contentsline {subsection}{\numberline {5.17}Jeq}{10}{subsection.5.17}%
+\contentsline {subsection}{\numberline {5.18}Jlt}{10}{subsection.5.18}%
+\contentsline {subsection}{\numberline {5.19}Print}{11}{subsection.5.19}%
+\contentsline {subsection}{\numberline {5.20}Print str}{11}{subsection.5.20}%
+\contentsline {subsection}{\numberline {5.21}Print nl}{11}{subsection.5.21}%
+\contentsline {section}{\numberline {6}Execu\IeC {\c c}\IeC {\~a}o}{12}{section.6}%
+\contentsline {section}{\numberline {7}Refer\IeC {\^e}ncias}{12}{section.7}%
